@@ -1,0 +1,98 @@
+<p-toast position="top-center"></p-toast>
+<p-button label="New" (click)="newform()"></p-button>
+<p-tabView>
+    <p-tabPanel header="Todays Plan">
+        <p-table [value]="todaytable">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Occurrence</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-ri="rowIndex">
+                <tr [pEditableRow]="product">
+                    <td>{{product.name}}</td>
+                    <td>{{product.from}}</td>
+                    <td>{{product.to}}</td>
+                    <td>{{product.occur}}</td>
+                    <td>
+                        <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onedit(ri,product.id)" class="p-button-rounded p-button-text"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="delete(product.id)" class="p-button-rounded p-button-warning"></button>
+
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-tabPanel>
+    <p-tabPanel header="All Plans">
+        <p-table [value]="datetable">
+            <ng-template pTemplate="header" >
+                <tr>
+                    <th>Name</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Occurrence</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-ri="rowIndex">
+                <tr [pEditableRow]="product">
+                    <td>{{product.name}}</td>
+                    <td>{{product.from}}</td>
+                    <td>{{product.to}}</td>
+                    <td>{{product.occur}}</td>
+                    <td>
+                        <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onedit(ri,product.id)" class="p-button-rounded p-button-text"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="delete(product.id)" class="p-button-rounded p-button-warning"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-tabPanel>
+</p-tabView>
+<p-dialog header="New" [(visible)]="dialog" [style]="{'width':'80%','height':'80%','margin-top':'2.5'}">
+    <h3>Name</h3> <br/>
+    <input type="text" pInputText [(ngModel)]="name" />
+
+    <table>
+        <tr>
+            <td><h4>From</h4></td>
+            <td><h4>To</h4></td>
+        </tr>
+        <tr>
+            <td><p-calendar [(ngModel)]="from" [showTime]="true" hourFormat="12"></p-calendar></td>
+            <td><p-calendar [(ngModel)]="to" [showTime]="true" hourFormat="12"></p-calendar></td>
+        </tr>
+    </table>
+    <br><br>
+    <h4>Recurence: </h4>
+    <p-dropdown [options]="occurence" [(ngModel)]="selectedoccur" optionLabel="label"></p-dropdown>
+    <br><br>
+    <p-button label="Save" (click)="saveform()"></p-button>
+</p-dialog>
+
+<p-dialog header="Edit" [(visible)]="editdialog" [style]="{'width':'80%','height':'80%','margin-top':'2.5'}">
+    <h3>Name</h3> <br/>
+    <input type="text" pInputText [(ngModel)]="name" />
+
+    <table>
+        <tr>
+            <td><h4>From</h4></td>
+            <td><h4>To</h4></td>
+        </tr>
+        <tr>
+            <td><p-calendar [(ngModel)]="from" [showTime]="true" hourFormat="12"></p-calendar></td>
+            <td><p-calendar [(ngModel)]="to" [showTime]="true" hourFormat="12"></p-calendar></td>
+        </tr>
+    </table>
+    <br><br>
+    <h4>Recurence: </h4>
+    <p-dropdown [options]="occurence" [(ngModel)]="selectedoccur" optionLabel="label"></p-dropdown>
+    <br><br>
+    <p-button label="Save" (click)="saveedit()"></p-button>
+</p-dialog>
